@@ -1,9 +1,14 @@
 export default function Page() {
     return (
         <section className="h-full">
-            <div className="text-center">
-                <h3 className="p-5 text-gray-800 font-bold">List of Short URLs Created</h3>
-                <table className="w-full h-full text-sm text-left text-gray-600 mt-5">
+            <div>
+                <div className="flex flex-row items-center p-2 m-5">
+                    <h3 className="text-gray-800 font-bold flex-1">List of Short URLs Created</h3>
+                    <div className="flex-1">
+                        <button className="p-2 bg-blue-500 rounded-md text-white text-sm">Create</button>
+                    </div>
+                </div>
+                <table className="ml-5 w-full h-full text-sm text-left text-gray-600 m-auto">
                     <thead>
                         <tr className="border-b">
                             <th className="px-6 py-3">Short ID</th>
@@ -24,6 +29,18 @@ export default function Page() {
                         </tr>
                     </tbody>
                 </table>
+
+
+                <div class="ml-5 flex pt-5">
+                    <a href="#" class="flex items-center justify-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md">
+                        Previous
+                    </a>
+
+                    <a href="#" class="flex items-center justify-center p-1 ml-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md">
+                        Next
+                    </a>
+                </div>
+
             </div>
 
         </section>
