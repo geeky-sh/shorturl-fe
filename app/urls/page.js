@@ -1,18 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import URLs from "../components/urls";
-import { getAccessToken } from "../utils/session";
 import { useRouter } from "next/navigation";
+import { GetURLs } from "../utils/api";
 
 export default function Page() {
     const router = useRouter()
     const [urls, setUrls] = useState([])
 
     useEffect(() => {
-        console.log("called")
-        let promise = fetch("http://localhost:4000/", {
-            method: 'GET', headers: {"content-type": "application/json", "Authorization": getAccessToken()}})
-        promise.then((res) => {
+        GetURLs().then((res) => {
             if (res.status == 200) {
                 res.json().then((result) => {
                     console.log(result)

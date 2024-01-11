@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { isLoggedIn, login } from "../utils/session"
 import { useRouter } from "next/navigation"
+import { SubmitLogin } from "../utils/api"
 
 export default function Login() {
     const router = useRouter()
@@ -18,26 +19,21 @@ export default function Login() {
     const onClick = async(e) => {
         setErrMsg("")
         e.preventDefault()
-        let res = await fetch("http://localhost:4000/users/login", {
-            method: 'POST',
-            body: JSON.stringify({username: username, password: password}),
-            headers: {
-                'content-type': "application/json"
-            }
-        })
-        if(res.status == 200) {
-            let result = await res.json()
-            console.log(result)
-            login(result["access_token"])
-            router.push("/urls")
-        } else {
-            let result = await res.json()
-            console.log(result)
-            setErrMsg(result["msg"])
-        }
+        SubmitLogin(username, password).then((res) => {
+            res.json().then((result) => {
+                console.log(result)
+                if(res.status == 200) {
+                    login(result["access_token"])
+                    router.push("/urls")
+                } else {
+                    setErrMsg(result["msg"])
+                }
+
+            })
+        }, (err) => {console.error(err)})
     }
     return (
-        <section className="bg-gray-100">
+        <section className="bg-gray-100 font-serif">
             <div className="flex flex-col items-center justify-center h-screen">
                 <h3 className="align-center text-xl mb-2 text-gray-900">Login</h3>
                 <div className="p-4 bg-white border border-gray-100 min-w-80 rounded-md">

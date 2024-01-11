@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { getAccessToken } from "../utils/session"
 import { useRouter } from "next/navigation";
+import { SubmitURL } from "../utils/api";
 
 export default function Create() {
     const router = useRouter()
@@ -15,30 +16,25 @@ export default function Create() {
     const onSubmit = async(e) => {
         e.preventDefault()
         setErrMsg("")
-        let res = await fetch("http://localhost:4000/", {
-            method: "POST",
-            body: JSON.stringify({url: url}),
-            headers: {
-                'content-type': "application/json",
-                "Authorization": getAccessToken()
+        SubmitURL(url).then((res) => {
+            if(res.status == 201) {
+                router.push("/urls")
+                return
+            } else if (res.status == 401) {
+                router.push("/login")
+                return
+            } else {
+                res.json().then((result) => {
+                    console.log(result)
+                    setErrMsg(result["msg"])
+                })
             }
-        })
-        if(res.status == 201) {
-            router.push("/urls")
-            return
-        } else if (res.status == 401) {
-            router.push("/login")
-            return
-        } else {
-            let result = await res.json()
-            console.log(result)
-            setErrMsg(result["msg"])
-        }
+        }, (err) => {console.error(err)})
     }
 
 
     return (
-        <section className="bg-gray-100">
+        <section className="bg-gray-100 font-serif">
             <div className="flex flex-col items-center justify-center h-screen">
                 <h3 className="align-center text-xl mb-2 text-gray-900">Create Short URL</h3>
                 <div className="p-4 bg-white border border-gray-100 min-w-80 rounded-md">
