@@ -40,13 +40,13 @@ export default function Login() {
                     <form>
                         <div className="text-sm text-red-400 message">{errMsg}</div>
                         <div className="py-2">
-                            <label for="username" className="py-2 text-base block text-gray-600">Username:</label>
+                            <label htmlFor="username" className="py-2 text-base block text-gray-600">Username:</label>
                             <input type="username" name="username" id="username" placeholder="Your username"
                                 className="text-base bg-gray-50 rounded-md p-1 w-full" onChange={(e) => onChangeUsername(e)}
                                 value={username}/>
                         </div>
                         <div className="py-2">
-                            <label for="password" className="py-2 text-base block text-gray-600">Password:</label>
+                            <label htmlFor="password" className="py-2 text-base block text-gray-600">Password:</label>
                             <input type="password" name="password" id="password" placeholder="Your password"
                                 className="text-base bg-gray-50 rounded-md p-1 w-full" onChange={(e) => onChangePassword(e)}
                                 value={password}/>
