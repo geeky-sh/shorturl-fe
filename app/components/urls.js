@@ -23,7 +23,7 @@ export default function URLs({urls}) {
                         <tbody>
                             {urls && urls.map((obj, _) => {
                                 let date = new Date(obj.created_at)
-                                let short_url = `http://localhost:4000/${obj.code}`
+                                let short_url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${obj.code}`
                                 return (
                                     <tr className="border-b" key={obj.id}>
                                         <td className="px-6 py-3">{obj.code}
